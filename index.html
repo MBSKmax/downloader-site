@@ -10,7 +10,8 @@
     <title>SuperDownloader - Social Media Video & Audio Saver</title>
     <meta
       name="description"
-<meta name="description" content="Download TikTok videos without watermark, Instagram Reels, and Facebook videos in HD. Fast, free, and installable PWA for one-click media saving." />    />
+      content="Download TikTok videos without watermark, Instagram Reels, and Facebook videos in HD. Fast, free, and installable PWA for one-click media saving."
+    />
     <link rel="manifest" href="/manifest.json" />
     <style>
       :root {
@@ -263,16 +264,15 @@
           Instagram Reels are addictive, but the app doesn't allow direct
           gallery saves. With SuperDownloader, Android users can simply copy the
           Reel link, paste it into our portal, and click extract. The video will
-          be saved in your 'Downloads' folder in HD quality. No extra apps or
-          logins needed!
+          be saved in your 'Downloads' folder in HD quality.
         </p>
       </div>
       <div class="article-item">
         <h3>4. Convert TikTok Videos to MP3 Instantly.</h3>
         <p>
-          Love a background song on TikTok? You don't need a separate converter.
-           Paste the TikTok link into SuperDownloader and use the 'Download Audio' button.
-            It extracts the high-quality M4A/MP3 audio directly from the video so you can use it for your own creative projects.
+          Love a background song on TikTok? Paste the TikTok link into
+          SuperDownloader and use the 'Download Audio' button. It extracts the
+          high-quality M4A/MP3 audio directly from the video.
         </p>
       </div>
     </div>
@@ -289,7 +289,6 @@
     </div>
 
     <script>
-      // PWA Logic & Service Worker Registration
       let deferredPrompt;
       const installBtn = document.getElementById("installBtn");
 
@@ -316,7 +315,6 @@
         }
       });
 
-      // Navigation Logic
       function showPage(page) {
         const mainApp = document.getElementById("main-app");
         const blog = document.getElementById("blog-section");
@@ -335,11 +333,11 @@
           if (page === "privacy") {
             lTitle.innerText = "Privacy Policy";
             lBody.innerHTML =
-              "We do not store any of the videos you download or your personal information. Our tool fetches direct links from servers for real-time extraction.";
+              "We do not store any of the videos you download or your personal information.";
           } else if (page === "terms") {
             lTitle.innerText = "Terms of Use";
             lBody.innerHTML =
-              "SuperDownloader is for personal use only. Please respect copyrights. Commercial use is prohibited.";
+              "SuperDownloader is for personal use only. Please respect copyrights.";
           } else if (page === "contact") {
             lTitle.innerText = "Contact Us";
             lBody.innerHTML =
@@ -349,7 +347,6 @@
         window.scrollTo(0, 0);
       }
 
-      // Download Function (Hugging Face Connection)
       async function handleDownload() {
         const urlInput = document.getElementById("videoUrl").value;
         const loader = document.getElementById("loader");
@@ -357,7 +354,6 @@
 
         if (!urlInput) return alert("Please paste a link!");
 
-        // Yahan Apna Hugging Face Space URL Dalein
         const HF_SPACE_URL =
           "https://mbilalshabbir16-my-downloader-api.hf.space";
 
@@ -382,10 +378,7 @@
             document.getElementById("thumbLink").href = data.thumbnail;
             resultDiv.style.display = "block";
           } else {
-            alert(
-              "Error: " +
-                (data.error || "Could not fetch media. Check the link."),
-            );
+            alert("Error: " + (data.error || "Could not fetch media."));
           }
         } catch (err) {
           alert("Server busy or down. Please try again in a few seconds.");
