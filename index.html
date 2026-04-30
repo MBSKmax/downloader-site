@@ -1,443 +1,69 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="google-site-verification"
-      content="gBU1rhpTHriyLPAt5z_9PJZBBvrzUa6aNqT7E1MjkqA"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SuperDownloader - Social Media Video & Audio Saver</title>
-    <meta
-      name="description"
-      content="Download TikTok videos without watermark, Instagram Reels, and Facebook videos in HD. Fast, free, and installable PWA for one-click media saving."
-    />
-    <link rel="manifest" href="/manifest.json" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperDownloader - Best Social Media Video Saver</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
     <style>
-      :root {
-        --primary: #6c5ce7;
-        --secondary: #a29bfe;
-        --dark: #2d3436;
-        --success: #00b894;
-        --warning: #e67e22;
-      }
-      body {
-        font-family: "Poppins", sans-serif;
-        background: #f0f2f5;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        color: var(--dark);
-        padding: 20px;
-      }
-      .app-card {
-        background: white;
-        width: 100%;
-        max-width: 450px;
-        padding: 30px;
-        border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        box-sizing: border-box;
-      }
-      h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-        color: var(--primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-      }
-      p {
-        font-size: 14px;
-        color: #636e72;
-        margin-bottom: 25px;
-      }
-      input {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #dfe6e9;
-        border-radius: 12px;
-        outline: none;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-        font-size: 15px;
-      }
-      input:focus {
-        border-color: var(--primary);
-      }
-      button {
-        width: 100%;
-        padding: 15px;
-        border: none;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.3s;
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-      .btn-main {
-        background: var(--primary);
-        color: white;
-      }
-      #installBtn {
-        background: var(--success);
-        color: white;
-        display: none;
-      }
-      #result {
-        display: none;
-        margin-top: 25px;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
-        animation: fadeIn 0.5s ease;
-      }
-      .preview-img {
-        width: 100%;
-        border-radius: 15px;
-        margin-bottom: 15px;
-      }
-      .video-title {
-        font-size: 16px;
-        font-weight: 500;
-        margin-bottom: 15px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        line-clamp: 2;
-        overflow: hidden;
-      }
-      .download-options {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .btn-dl-video {
-        background: #00cec9;
-        color: white;
-      }
-      .btn-dl-audio {
-        background: var(--warning);
-        color: white;
-      }
-      .btn-dl-thumb {
-        background: #fab1a0;
-        color: white;
-      }
-      .loader {
-        display: none;
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid var(--primary);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 20px auto;
-      }
-      .seo-content,
-      .legal-container {
-        max-width: 600px;
-        margin-top: 30px;
-        text-align: left;
-        background: #fff;
-        padding: 25px;
-        border-radius: 20px;
-        font-size: 14px;
-        line-height: 1.6;
-        color: #555;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      .article-item {
-        border-bottom: 1px dashed #ddd;
-        padding-bottom: 15px;
-        margin-bottom: 15px;
-      }
-      .footer-nav {
-        margin-top: 20px;
-        text-align: center;
-        font-size: 12px;
-        padding-bottom: 40px;
-      }
-      .footer-nav a {
-        color: var(--primary);
-        text-decoration: none;
-        margin: 0 10px;
-        cursor: pointer;
-        font-weight: bold;
-      }
-      #legal-view {
-        display: none;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+        :root { --primary: #6c5ce7; --success: #00b894; --dark: #2d3436; }
+        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .app-card { background: white; width: 100%; max-width: 450px; padding: 30px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: var(--primary); font-size: 24px; margin-bottom: 10px; }
+        input { width: 100%; padding: 15px; border: 2px solid #dfe6e9; border-radius: 12px; margin-bottom: 20px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-extract { background: var(--primary); color: white; }
+        .footer-nav { margin-top: 40px; text-align: center; }
+        .footer-nav a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 14px; }
+        #loader { display: none; margin: 20px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
-  </head>
-  <body>
-    <div class="app-card" id="main-app">
-      <h1>🚀 SuperDownloader</h1>
-      <p>Fast Video & Audio Extraction</p>
-      <input
-        type="text"
-        id="videoUrl"
-        placeholder="Paste link here (Insta, TikTok, FB)..."
-      />
-      <button class="btn-main" onclick="handleDownload()">Extract Media</button>
-      <button id="installBtn">📲 Install App (One-Click)</button>
-      <div class="loader" id="loader"></div>
-      <div id="result">
-        <img id="preview" class="preview-img" src="" />
-        <div id="vTitle" class="video-title"></div>
-        <div class="download-options">
-          <a id="videoLink" target="_blank"
-            ><button class="btn-dl-video">🎥 Download Video</button></a
-          >
-          <a id="audioLink" target="_blank"
-            ><button class="btn-dl-audio">🎵 Download Audio</button></a
-          >
-          <a id="thumbLink" target="_blank"
-            ><button class="btn-dl-thumb">🖼️ Save Thumbnail</button></a
-          >
+</head>
+<body>
+    <div class="app-card">
+        <h1>🚀 SuperDownloader</h1>
+        <p>Paste link (TikTok, Insta, FB)</p>
+        <input type="text" id="videoUrl" placeholder="https://...">
+        <button class="btn-extract" onclick="handleDownload()">Extract Media</button>
+        <center><div id="loader"></div></center>
+        <div id="result" style="display:none; margin-top:20px;">
+            <img id="preview" style="width:100%; border-radius:12px;">
+            <p id="vTitle" style="font-weight:600; font-size:14px;"></p>
+            <a id="dlLink" target="_blank"><button style="background:var(--success); color:white;">Download Now</button></a>
         </div>
-      </div>
-    </div>
-
-    <div class="legal-container" id="legal-view">
-      <h2 id="legal-title" style="color: var(--primary)"></h2>
-      <div id="legal-body"></div>
-      <button
-        onclick="showPage('home')"
-        style="
-          background: #eee;
-          color: #333;
-          margin-top: 20px;
-          width: auto;
-          padding: 10px 20px;
-        "
-      >
-        ← Back to Home
-      </button>
-    </div>
-
-    <div class="seo-content" id="blog-section">
-      <h2 style="font-size: 18px; color: var(--primary); text-align: center">
-        Latest Media Guides
-      </h2>
-      <div class="article-item" id="pinterest-guide">
-        <h3>1. How to Download Pinterest Videos Easily?</h3>
-        <p>
-          Pinterest is full of creative content. To save a Pinterest video, copy
-          the link, paste it into SuperDownloader, and get the high-quality MP4
-          file instantly.
-        </p>
-      </div>
-      <div class="article-item" id="linkedin-guide">
-        <h3>2. Save LinkedIn Videos for Offline Viewing?</h3>
-        <p>
-          LinkedIn videos contain professional insights. Our tool allows you to
-          extract these videos securely so you can watch them anytime, anywhere.
-        </p>
-      </div>
-      <div class="article-item" id="insta-guide">
-        <h3>3. How to Download Instagram Reels on Android?</h3>
-        <p>
-          Instagram Reels are addictive, but the app doesn't allow direct
-          gallery saves. With SuperDownloader, Android users can simply copy the
-          Reel link, paste it into our portal, and click extract.
-        </p>
-      </div>
-      <div class="article-item" id="tiktok-guide">
-        <h3>4. Convert TikTok Videos to MP3 Instantly?</h3>
-        <p>
-          Love a background song on TikTok? Paste the TikTok link into
-          SuperDownloader and use the 'Download Audio' button. It extracts the
-          high-quality M4A/MP3 audio directly from the video.
-        </p>
-      </div>
-      <div class="article-item" id="iphone-guide">
-        <h3>5. Why SuperDownloader is the Best Web App for iPhone?</h3>
-        <p>
-          iPhone users often struggle with complex downloader apps. Our PWA
-          Safari experience provides seamless saving without occupying storage
-          space.
-        </p>
-      </div>
-      <div class="article-item" id="facebook-guide">
-        <h3>6. Saving Facebook Videos for Offline Learning?</h3>
-        <p>
-          Facebook is a goldmine for educational lectures. If you want to watch
-          them offline, use our Facebook Video Saver for a smooth MP4 file.
-        </p>
-      </div>
-      <div class="article-item" id="twitter-guide">
-        <h3>7. How to Save Twitter (X) Videos in High Quality?</h3>
-        <p>
-          Just copy the tweet link containing the video, paste it into our tool,
-          and get a clean MP4 file without quality loss.
-        </p>
-      </div>
-      <div class="article-item" id="thumbnail-guide">
-        <h3>8. Extracting High-Resolution Thumbnails from Videos?</h3>
-        <p>
-          Need a thumbnail for a reaction video or a blog post? SuperDownloader
-          provides a dedicated 'Save Thumbnail' button. It fetches the original
-          cover image of the video in the highest resolution available on the
-          platform's server.
-        </p>
-      </div>
-      <div
-        class="article-item"
-        id="legal-downloading-social-media-content-guide"
-      >
-        <h3>9. The Legal Side of Downloading Social Media Content?</h3>
-        <p>
-          While downloading videos for personal use and offline viewing is
-          common, always respect the original creator's rights. We recommend
-          using SuperDownloader for inspiration and educational purposes. Never
-          re-upload content without the owner's permission to avoid copyright
-          issues.
-        </p>
-      </div>
-      <div class="article-item" id="Reddit-guide">
-        <h3>10: How to Download Reddit Videos with Audio?</h3>
-        <p>
-          Reddit videos are notorious for being hard to download with audio
-          intact. Our advanced yt-dlp backend ensures that when you paste a
-          Reddit link, both video and audio streams are combined into a single,
-          high-quality MP4 file for you.
-        </p>
-      </div>
     </div>
 
     <div class="footer-nav">
-      <a onclick="showPage('home')">Home</a> |
-      <a onclick="showPage('privacy')">Privacy Policy</a> |
-      <a onclick="showPage('terms')">Terms of Use</a> |
-      <a onclick="showPage('contact')">Contact Us</a>
-      <p style="margin-top: 15px; color: #999">
-        &copy; 2026 SuperDownloader - Built by world2bold-Gang. All rights
-        reserved.
-      </p>
+        <a href="index.html">Home</a> | <a href="articles.html">Guides</a> | <a href="premium.html">Premium</a> | <a href="contact.html">Contact</a>
     </div>
 
     <script>
-      let deferredPrompt;
-      const installBtn = document.getElementById("installBtn");
+        async function handleDownload() {
+            const url = document.getElementById("videoUrl").value;
+            const loader = document.getElementById("loader");
+            const result = document.getElementById("result");
+            if(!url) return alert("Please paste a link!");
 
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/sw.js")
-            .catch((err) => console.log("SW failed", err));
-        });
-      }
+            loader.style.display = "block";
+            result.style.display = "none";
 
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = "block";
-      });
-
-      installBtn.addEventListener("click", async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === "accepted") installBtn.style.display = "none";
-          deferredPrompt = null;
+            try {
+                // Yahan apna Render ka backend URL daalna hai
+                const res = await fetch("https://YOUR-RENDER-APP.onrender.com/extract", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: url })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    document.getElementById("preview").src = data.thumbnail;
+                    document.getElementById("vTitle").innerText = data.title;
+                    document.getElementById("dlLink").href = data.download_url;
+                    result.style.display = "block";
+                } else { alert("Error: " + data.error); }
+            } catch(e) { alert("Server Error! Check backend."); }
+            finally { loader.style.display = "none"; }
         }
-      });
-
-      function showPage(page) {
-        const mainApp = document.getElementById("main-app");
-        const blog = document.getElementById("blog-section");
-        const legalView = document.getElementById("legal-view");
-        const lTitle = document.getElementById("legal-title");
-        const lBody = document.getElementById("legal-body");
-
-        if (page === "home") {
-          mainApp.style.display = "block";
-          blog.style.display = "block";
-          legalView.style.display = "none";
-        } else {
-          mainApp.style.display = "none";
-          blog.style.display = "none";
-          legalView.style.display = "block";
-          if (page === "privacy") {
-            lTitle.innerText = "Privacy Policy";
-            lBody.innerHTML =
-              "We do not store any of the videos you download or your personal information.";
-          } else if (page === "terms") {
-            lTitle.innerText = "Terms of Use";
-            lBody.innerHTML =
-              "SuperDownloader is for personal use only. Please respect copyrights.";
-          } else if (page === "contact") {
-            lTitle.innerText = "Contact Us";
-            lBody.innerHTML =
-              "For any issues, contact us at: <b>[ businessqueryinfo1@gmail.com ]</b>";
-          }
-        }
-        window.scrollTo(0, 0);
-      }
-
-      async function handleDownload() {
-        const urlInput = document.getElementById("videoUrl").value;
-        const loader = document.getElementById("loader");
-        const resultDiv = document.getElementById("result");
-
-        if (!urlInput) return alert("Please paste a link!");
-
-        const HF_SPACE_URL =
-          "https://mbilalshabbir16-my-downloader-api.hf.space";
-
-        resultDiv.style.display = "none";
-        loader.style.display = "block";
-
-        try {
-          const response = await fetch(HF_SPACE_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url: urlInput }),
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            document.getElementById("preview").src = data.thumbnail || "";
-            document.getElementById("vTitle").innerText = data.title;
-            document.getElementById("videoLink").href = data.download_url;
-            document.getElementById("audioLink").href =
-              data.audio_url || data.download_url;
-            document.getElementById("thumbLink").href = data.thumbnail;
-            resultDiv.style.display = "block";
-          } else {
-            alert("Error: " + (data.error || "Could not fetch media."));
-          }
-        } catch (err) {
-          alert("Server busy or down. Please try again in a few seconds.");
-        } finally {
-          loader.style.display = "none";
-        }
-      }
     </script>
-  </body>
+</body>
 </html>
