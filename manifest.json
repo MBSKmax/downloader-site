@@ -1,0 +1,21 @@
+{
+  "name": "SuperDownloader Pro",
+  "short_name": "Super-D",
+  "description": "Fast Social Media Video Downloader",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#6c5ce7",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
