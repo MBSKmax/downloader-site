@@ -96,6 +96,11 @@
         font-weight: bold;
         font-size: 18px;
         cursor: pointer;
+        transition: 0.3s ease;
+      }
+      .btn-extract:disabled {
+        background: #a29bfe;
+        cursor: not-allowed;
       }
 
       /* Ad Logic */
@@ -161,7 +166,7 @@
     </style>
   </head>
   <body>
-    <!-- Social Bar Code -->
+    <!-- Social Bar Code (Notification Ad) -->
     <script src="https://pl29314272.profitablecpmratenetwork.com/86/8e/14/868e143ac1fced7f4d570df43f22b63c.js"></script>
 
     <nav>
@@ -176,8 +181,8 @@
         <h1>Super-D Hub</h1>
         <div class="typing-box" id="typing-text"></div>
 
-        <input type="text" id="vUrl" placeholder="Paste link here..." />
-        <button class="btn-extract" onclick="startDownload()">Download Now 🚀</button>
+        <input type="text" id="vUrl" placeholder="Paste link here (Insta, TikTok, etc.)" />
+        <button class="btn-extract" id="mainBtn" onclick="startDownload()">Download Now 🚀</button>
 
         <!-- TOP AD SLOT (Mobile Banner) -->
         <div class="ad-wrapper mobile-ad">
@@ -216,7 +221,6 @@
         <h3>Fast Video Downloader 2026</h3>
         <p>Aap baghair kisi watermark ke HD videos download kar sakte hain. Super-D Hub use karte huay speed ultra fast milti hai.</p>
       </div>
-      <div class="placeholder-article">📅 New Article Loading Tomorrow...</div>
     </div>
 
     <div id="about" class="section">
@@ -246,7 +250,7 @@
         window.scrollTo(0, 0);
       }
 
-      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Pinterest Video", "Snapchat Spotlight", "And Much More..."];
+      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Pinterest Video", "Snapchat Spotlight"];
       let pIndex = 0, charIndex = 0, isErasing = false;
       
       function typeEffect() {
@@ -260,23 +264,42 @@
       typeEffect();
 
       async function startDownload() {
-        const url = document.getElementById("vUrl").value;
-        if(!url) return alert("Link kahan hai?");
+        const urlInput = document.getElementById("vUrl");
+        const btn = document.getElementById("mainBtn");
+        const url = urlInput.value.trim();
+        
+        if(!url) return alert("Please paste a valid link!");
+        
+        btn.disabled = true;
+        btn.innerText = "Extracting... ⏳";
         
         try {
           const res = await fetch("https://mbilalshabbir16-super-downloader.hf.space/extract", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url: url })
+            headers: { 
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({ 
+                url: url,
+                token: "WORLD2BOLD_SECRET_786" // Security Key
+            })
           });
+          
           const data = await res.json();
+          
           if(data.success) {
-            window.open(data.download_url, '_blank');
+            btn.innerText = "Redirecting... ✅";
+            // Open in same or new window based on preference
+            window.location.href = data.download_url;
           } else {
             alert("Error: " + data.error);
           }
         } catch(e) {
-          alert("Backend is starting... wait 5 seconds.");
+          alert("Connection Error. Backend might be restarting. Please try in 10 seconds.");
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "Download Now 🚀";
         }
       }
     </script>
