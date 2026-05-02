@@ -3,379 +3,282 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SuperDownloader Pro - One-Click Video Saver</title>
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#6c5ce7" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-    />
+    <title>Super-D Hub | Ultimate All-in-One Downloader</title>
     <style>
       :root {
         --primary: #6c5ce7;
-        --success: #00b894;
-        --dark: #2d3436;
-        --bg: #f0f2f5;
+        --bg: #f8f9fa;
+        --card: #ffffff;
       }
       body {
         font-family: "Poppins", sans-serif;
         background: var(--bg);
         margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
+        scroll-behavior: smooth;
       }
 
-      /* Navigation Bar */
+      /* Navigation */
       nav {
         background: white;
-        width: 100%;
-        padding: 15px 0;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 15px;
         display: flex;
         justify-content: center;
         gap: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         position: sticky;
         top: 0;
-        z-index: 100;
+        z-index: 1000;
       }
       nav a {
         text-decoration: none;
-        color: var(--dark);
+        color: #636e72;
         font-weight: 600;
         font-size: 14px;
         cursor: pointer;
-        transition: 0.3s;
       }
       nav a:hover {
         color: var(--primary);
       }
-      nav a.active {
-        color: var(--primary);
-        border-bottom: 2px solid var(--primary);
-      }
 
-      .container {
-        width: 90%;
-        max-width: 500px;
-        padding: 20px 0;
-      }
-
-      /* Sections */
-      .page-section {
+      /* Main Section */
+      .section {
         display: none;
-        animation: fadeIn 0.4s ease-in-out;
+        padding: 40px 20px;
+        max-width: 800px;
+        margin: auto;
       }
-      .page-section.active {
+      .active-section {
         display: block;
+        animation: fadeIn 0.4s ease;
       }
 
-      /* Downloader Card */
-      .app-card {
-        background: white;
-        padding: 30px;
-        border-radius: 24px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .hero-card {
+        background: var(--card);
+        padding: 40px;
+        border-radius: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         text-align: center;
       }
-      h1 {
+
+      .typing-box {
+        height: 30px;
         color: var(--primary);
-        margin: 0 0 10px;
-        font-size: 26px;
-      }
-      input {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #dfe6e9;
-        border-radius: 12px;
-        margin: 15px 0;
-        box-sizing: border-box;
-        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
       }
 
-      .btn-main {
+      input {
+        width: 100%;
+        padding: 20px;
+        border: 2px solid #f1f1f1;
+        border-radius: 15px;
+        margin: 20px 0;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+      input:focus {
+        border-color: var(--primary);
+        outline: none;
+      }
+      .btn-extract {
+        width: 100%;
+        padding: 20px;
         background: var(--primary);
         color: white;
         border: none;
-        padding: 16px;
-        width: 100%;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 16px;
-      }
-
-      #result {
-        margin-top: 20px;
-        display: none;
-        text-align: center;
-      }
-      #preview {
-        width: 100%;
         border-radius: 15px;
-        margin-bottom: 10px;
-      }
-      .dl-options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .dl-btn {
-        flex: 1;
-        padding: 12px;
-        border-radius: 8px;
-        text-decoration: none;
-        color: white;
-        font-size: 12px;
-        font-weight: 600;
-        min-width: 100px;
-        text-align: center;
-      }
-
-      /* Info Sections */
-      .info-box {
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        margin-top: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      }
-      .premium-badge {
-        background: #ffeaa7;
-        color: #d63031;
-        padding: 4px 8px;
-        border-radius: 5px;
-        font-size: 10px;
         font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
       }
 
-      /* Loader */
-      #loader {
-        display: none;
-        margin: 20px auto;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid var(--primary);
+      /* Ad Logic */
+      .ad-wrapper { margin-top: 25px; text-align: center; overflow: hidden; }
+      .desktop-ad { display: block; }
+      .mobile-ad { display: none; }
+
+      @media (max-width: 768px) {
+        .desktop-ad { display: none; }
+        .mobile-ad { display: block; }
+      }
+
+      .steps-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .step-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        border: 1px solid #eee;
+      }
+      .step-num {
+        width: 40px;
+        height: 40px;
+        background: var(--primary);
+        color: white;
         border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .ad-placeholder {
-        background: #f1f3f4;
-        border: 1px dashed #ccc;
-        height: 90px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #999;
-        margin: 15px 0;
-        border-radius: 10px;
+        margin: 0 auto 10px;
+        font-weight: bold;
+      }
+
+      .article-box {
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        margin-top: 20px;
+        line-height: 1.6;
+      }
+
+      footer {
+        padding: 40px;
+        text-align: center;
+        color: #b2bec3;
         font-size: 12px;
+        border-top: 1px solid #eee;
+        margin-top: 50px;
+      }
+      .gang-text {
+        font-weight: 800;
+        color: var(--primary);
+        display: block;
+        font-size: 1.4rem;
+        margin-top: 5px;
+        letter-spacing: 1px;
       }
     </style>
   </head>
   <body>
+    <!-- Social Bar Code -->
+    <script src="https://pl29314272.profitablecpmratenetwork.com/86/8e/14/868e143ac1fced7f4d570df43f22b63c.js"></script>
+
     <nav>
-      <a onclick="showSection('home')" id="nav-home" class="active">Home</a>
-      <a onclick="showSection('guides')" id="nav-guides">Guides</a>
-      <a onclick="showSection('premium')" id="nav-premium">Premium</a>
+      <a onclick="showSection('home')">Home</a>
+      <a onclick="showSection('how-to')">Guide</a>
+      <a onclick="showSection('articles')">Articles</a>
+      <a onclick="showSection('about')">About</a>
     </nav>
 
-    <div class="container">
-      <section id="home" class="page-section active">
-        <div class="app-card">
-          <h1>🚀 Super-D Pro</h1>
-          <p style="font-size: 12px; color: #636e72">
-            AI-Powered High Speed Downloader
-          </p>
-          <div class="ad-placeholder">BANNER AD (Header)</div>
+    <div id="home" class="section active-section">
+      <div class="hero-card">
+        <h1>Super-D Hub</h1>
+        <div class="typing-box" id="typing-text"></div>
 
-          <input
-            type="text"
-            id="videoUrl"
-            placeholder="Paste link (TikTok, Insta, etc.)"
-          />
-          <button class="btn-main" id="extractBtn" onclick="handleDownload()">
-            Download Now
-          </button>
+        <input type="text" id="vUrl" placeholder="Paste link here..." />
+        <button class="btn-extract" onclick="startDownload()">Download Now 🚀</button>
 
-          <div id="loader"></div>
-
-          <div id="result">
-            <img id="preview" src="" />
-            <p id="vTitle" style="font-size: 14px; font-weight: 600"></p>
-            <div class="dl-options">
-              <a
-                id="dlLink"
-                class="dl-btn"
-                style="background: var(--success); flex-basis: 100%"
-                >🎥 Auto-Downloading...</a
-              >
-              <a id="audioLink" class="dl-btn" style="background: #0984e3"
-                >🎵 MP3 Audio</a
-              >
-              <a id="thumbLink" class="dl-btn" style="background: #636e72"
-                >🖼️ Thumbnail</a
-              >
-            </div>
-          </div>
+        <!-- TOP AD SLOT (Mobile Banner) -->
+        <div class="ad-wrapper mobile-ad">
+           <script>
+            atOptions = { 'key': '737d32e910ef7d5da4e9e5832168ae16', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {} };
+           </script>
+           <script src="https://www.highperformanceformat.com/737d32e910ef7d5da4e9e5832168ae16/invoke.js"></script>
         </div>
-      </section>
-
-      <section id="guides" class="page-section">
-        <div class="info-box">
-          <h2>Daily Guide: May 2026</h2>
-          <p>
-            Downloading content without watermarks has become essential for
-            creators. Here is how you can dominate the social game:
-          </p>
-          <ul>
-            <li>
-              <strong>TikTok:</strong> Copy link from 'Share' and paste here.
-            </li>
-            <li>
-              <strong>Instagram:</strong> Reels download in 1080p automatically.
-            </li>
-            <li><strong>Security:</strong> All downloads are SSL encrypted.</li>
-          </ul>
-          <div class="ad-placeholder">NATIVE AD (Guides)</div>
-        </div>
-      </section>
-
-      <section id="premium" class="page-section">
-        <div class="info-box" style="text-align: center">
-          <span class="premium-badge">COMING SOON</span>
-          <h2>Super-D Premium</h2>
-          <p>
-            Get ready for Batch Downloads and 4K resolution support. No ads,
-            just pure speed.
-          </p>
-          <button
-            class="btn-main"
-            style="background: #fab1a0; cursor: not-allowed"
-          >
-            Join Waiting List
-          </button>
-        </div>
-      </section>
-
-      <div class="ad-placeholder">FOOTER AD (All Pages)</div>
-      <footer
-        style="
-          text-align: center;
-          color: #b2bec3;
-          font-size: 11px;
-          margin-top: 20px;
-        "
-      >
-        &copy; 2026 SuperDownloader | world2bold-Gang
-      </footer>
+      </div>
     </div>
 
-    <script>
-      // Section Switching Logic (Professional Routing)
-      function showSection(sectionId) {
-        document
-          .querySelectorAll(".page-section")
-          .forEach((section) => section.classList.remove("active"));
-        document
-          .querySelectorAll("nav a")
-          .forEach((link) => link.classList.remove("active"));
+    <div id="how-to" class="section">
+      <h2 style="text-align: center">How to Download?</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h4>Copy Link</h4>
+          <p>Social media app se video link copy karein.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h4>Paste & Extract</h4>
+          <p>Link yahan paste kar ke 'Download Now' dabayein.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h4>Save File</h4>
+          <p>Video aapki gallery mein save ho jayegi.</p>
+        </div>
+      </div>
+    </div>
 
-        document.getElementById(sectionId).classList.add("active");
-        document.getElementById("nav-" + sectionId).classList.add("active");
+    <div id="articles" class="section">
+      <h2>Daily Viral Updates</h2>
+      <div class="article-box">
+        <h3>Fast Video Downloader 2026</h3>
+        <p>Aap baghair kisi watermark ke HD videos download kar sakte hain. Super-D Hub use karte huay speed ultra fast milti hai.</p>
+      </div>
+      <div class="placeholder-article">📅 New Article Loading Tomorrow...</div>
+    </div>
+
+    <div id="about" class="section">
+      <h2>About & Privacy</h2>
+      <p>Super-D Hub speed aur privacy ke liye banaya gaya hai. Hum data save nahi karte.</p>
+    </div>
+
+    <footer>
+      <!-- FOOTER AD SLOT (Desktop Banner) -->
+      <div class="ad-wrapper desktop-ad">
+        <script>
+          atOptions = { 'key' : 'c241894d9342421bbb9c1a23e34d1c47', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highperformanceformat.com/c241894d9342421bbb9c1a23e34d1c47/invoke.js"></script>
+      </div>
+
+      <div style="margin-top: 20px;">
+        Built by: <span class="gang-text">WORLD2BOLD-GANG</span>
+      </div>
+      <p>&copy; 2026 Super-D Hub | Clean & Ethical Download Service</p>
+    </footer>
+
+    <script>
+      function showSection(id) {
+        document.querySelectorAll(".section").forEach((s) => s.classList.remove("active-section"));
+        document.getElementById(id).classList.add("active-section");
         window.scrollTo(0, 0);
       }
 
-      // Notification Logic
-      function notifyUser() {
-        if ("Notification" in window && Notification.permission === "granted") {
-          new Notification("Success!", {
-            body: "Video processing complete. Check your downloads!",
-          });
-        }
+      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Pinterest Video", "Snapchat Spotlight", "And Much More..."];
+      let pIndex = 0, charIndex = 0, isErasing = false;
+      
+      function typeEffect() {
+        const current = platforms[pIndex];
+        const display = isErasing ? current.substring(0, charIndex--) : current.substring(0, charIndex++);
+        document.getElementById("typing-text").innerHTML = display + "|";
+        if (!isErasing && charIndex > current.length) { isErasing = true; setTimeout(typeEffect, 2000); }
+        else if (isErasing && charIndex < 0) { isErasing = false; pIndex = (pIndex + 1) % platforms.length; setTimeout(typeEffect, 500); }
+        else { setTimeout(typeEffect, isErasing ? 50 : 100); }
       }
+      typeEffect();
 
-      // Main Download Logic
-      async function handleDownload() {
-        const urlInput = document.getElementById("videoUrl").value.trim();
-        const loader = document.getElementById("loader");
-        const result = document.getElementById("result");
-        const extractBtn = document.getElementById("extractBtn");
-
-        if (!urlInput) {
-          alert("Please paste a link!");
-          return;
-        }
-
-        loader.style.display = "block";
-        result.style.display = "none";
-        extractBtn.disabled = true;
-
+      async function startDownload() {
+        const url = document.getElementById("vUrl").value;
+        if(!url) return alert("Link kahan hai?");
+        
         try {
-          const response = await fetch(
-            "https://mbilalshabbir16-super-d-backend.hf.space/extract",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ url: urlInput }),
-            },
-          );
-          const data = await response.json();
-
-          if (data.success) {
-            document.getElementById("preview").src = data.thumbnail;
-            document.getElementById("vTitle").innerText = data.title;
-            document.getElementById("dlLink").href = data.download_url;
-            document.getElementById("audioLink").href = data.download_url;
-            document.getElementById("thumbLink").href = data.thumbnail;
-            result.style.display = "block";
-
-            // AUTO DOWNLOAD TRIGGER
-            const link = document.createElement("a");
-            link.href = data.download_url;
-            link.target = "_blank";
-            link.click();
-            notifyUser();
+          const res = await fetch("https://mbilalshabbir16-super-downloader.hf.space/extract", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: url })
+          });
+          const data = await res.json();
+          if(data.success) {
+            window.open(data.download_url, '_blank');
           } else {
-            alert("Link Error: " + data.error);
+            alert("Error: " + data.error);
           }
-        } catch (error) {
-          alert("Server is waking up. Please try again in 5 seconds!");
-        } finally {
-          loader.style.display = "none";
-          extractBtn.disabled = false;
+        } catch(e) {
+          alert("Backend is starting... wait 5 seconds.");
         }
       }
-
-      window.onload = () => {
-        if ("Notification" in window) Notification.requestPermission();
-        fetch("https://mbilalshabbir16-super-d-backend.hf.space/").catch(
-          () => {},
-        );
-      };
     </script>
   </body>
 </html>
