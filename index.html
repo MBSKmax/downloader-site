@@ -264,44 +264,47 @@
       typeEffect();
 
       async function startDownload() {
-        const urlInput = document.getElementById("vUrl");
-        const btn = document.getElementById("mainBtn");
-        const url = urlInput.value.trim();
-        
-        if(!url) return alert("Please paste a valid link!");
-        
-        btn.disabled = true;
-        btn.innerText = "Extracting... ⏳";
-        
-        try {
-          const res = await fetch("https://mbilalshabbir16-super-downloader.hf.space/extract", {
+    const urlInput = document.getElementById("vUrl");
+    const btn = document.getElementById("mainBtn");
+    const url = urlInput.value.trim();
+    
+    if(!url) return alert("Link paste karein!");
+    
+    btn.disabled = true;
+    btn.innerText = "Extracting... ⏳";
+    
+    try {
+        const res = await fetch("https://mbilalshabbir16-super-downloader.hf.space/extract", {
             method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
                 url: url,
-                token: "WORLD2BOLD_SECRET_786" // Security Key
+                token: "WORLD2BOLD_SECRET_786" 
             })
-          });
-          
-          const data = await res.json();
-          
-          if(data.success) {
-            btn.innerText = "Redirecting... ✅";
-            // Open in same or new window based on preference
-            window.location.href = data.download_url;
-          } else {
+        });
+        
+        const data = await res.json();
+        
+        if(data.success) {
+            // Video download link par redirect karein ya download trigger karein
+            const downloadLink = document.createElement('a');
+            downloadLink.href = data.download_url;
+            downloadLink.download = "video.mp4"; // Force download
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            btn.innerText = "Downloaded! ✅";
+        } else {
             alert("Error: " + data.error);
-          }
-        } catch(e) {
-          alert("Connection Error. Backend might be restarting. Please try in 10 seconds.");
-        } finally {
-          btn.disabled = false;
-          btn.innerText = "Download Now 🚀";
         }
-      }
+    } catch(e) {
+        alert("Server Busy. Refresh karke try karein.");
+    } finally {
+        btn.disabled = false;
+        setTimeout(() => { btn.innerText = "Download Now 🚀"; }, 3000);
+    }
+}
     </script>
   </body>
 </html>
