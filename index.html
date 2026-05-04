@@ -268,38 +268,46 @@
     const btn = document.getElementById("mainBtn");
     const url = urlInput.value.trim();
     
-    if(!url) return alert("Link paste karein!");
+    if(!url) return alert("Bhai, link toh paste karo!");
     
+    // UI Update
     btn.disabled = true;
-    btn.innerText = "Extracting... ⏳";
+    btn.innerText = "Extracting Clean Link... ⏳";
     
     try {
-        const res = await fetch("https://mbilalshabbir16-super-downloader.hf.space/extract", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                url: url,
-                token: "WORLD2BOLD_SECRET_786" 
-            })
-        });
+        // Is URL ko update karein
+const backendURL = "https://super-shorts-backend.onrender.com/extract";
+
+const res = await fetch(backendURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+        url: userInputLink, 
+        token: "WORLD2BOLD_SECRET_786" // Ye token app.py se match hona chahiye
+    })
+});
         
         const data = await res.json();
         
         if(data.success) {
-            // Video download link par redirect karein ya download trigger karein
-            const downloadLink = document.createElement('a');
-            downloadLink.href = data.download_url;
-            downloadLink.download = "video.mp4"; // Force download
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+            btn.innerText = "Download Starting... ✅";
             
-            btn.innerText = "Downloaded! ✅";
+            // Ye method best hai download trigger karne ke liye
+            const a = document.createElement('a');
+            a.href = data.download_url;
+            a.download = `SuperD_${Date.now()}.mp4`; // Unique name
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Agar auto-download na ho toh thumbnail aur link show karwa do
+            console.log("Video Title:", data.title);
         } else {
             alert("Error: " + data.error);
         }
     } catch(e) {
-        alert("Server Busy. Refresh karke try karein.");
+        alert("Server is waking up. Please try again in 5 seconds.");
+        console.error("Fetch Error:", e);
     } finally {
         btn.disabled = false;
         setTimeout(() => { btn.innerText = "Download Now 🚀"; }, 3000);
