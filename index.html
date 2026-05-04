@@ -79,6 +79,7 @@
         border: 2px solid #f1f1f1;
         border-radius: 15px;
         margin: 20px 0;
+        box-sizing: border-box; /* Fix for padding issue */
         font-size: 16px;
         transition: 0.3s;
       }
@@ -166,7 +167,7 @@
     </style>
   </head>
   <body>
-    <!-- Social Bar Code (Notification Ad) -->
+    <!-- Social Bar Ad -->
     <script src="https://pl29314272.profitablecpmratenetwork.com/86/8e/14/868e143ac1fced7f4d570df43f22b63c.js"></script>
 
     <nav>
@@ -181,10 +182,10 @@
         <h1>Super-D Hub</h1>
         <div class="typing-box" id="typing-text"></div>
 
-        <input type="text" id="vUrl" placeholder="Paste link here (Insta, TikTok, etc.)" />
+        <input type="text" id="vUrl" placeholder="Paste link here (Insta, TikTok, YouTube...)" />
         <button class="btn-extract" id="mainBtn" onclick="startDownload()">Download Now 🚀</button>
 
-        <!-- TOP AD SLOT (Mobile Banner) -->
+        <!-- Mobile Ad -->
         <div class="ad-wrapper mobile-ad">
            <script>
             atOptions = { 'key': '737d32e910ef7d5da4e9e5832168ae16', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {} };
@@ -200,17 +201,17 @@
         <div class="step-card">
           <div class="step-num">1</div>
           <h4>Copy Link</h4>
-          <p>Social media app se video link copy karein.</p>
+          <p>Apni pasand ki video ka link copy karein.</p>
         </div>
         <div class="step-card">
           <div class="step-num">2</div>
-          <h4>Paste & Extract</h4>
-          <p>Link yahan paste kar ke 'Download Now' dabayein.</p>
+          <h4>Paste Link</h4>
+          <p>Yahan paste kar ke 'Download Now' dabayein.</p>
         </div>
         <div class="step-card">
           <div class="step-num">3</div>
-          <h4>Save File</h4>
-          <p>Video aapki gallery mein save ho jayegi.</p>
+          <h4>Done</h4>
+          <p>Video download ho kar gallery mein aa jayegi.</p>
         </div>
       </div>
     </div>
@@ -218,18 +219,17 @@
     <div id="articles" class="section">
       <h2>Daily Viral Updates</h2>
       <div class="article-box">
-        <h3>Fast Video Downloader 2026</h3>
-        <p>Aap baghair kisi watermark ke HD videos download kar sakte hain. Super-D Hub use karte huay speed ultra fast milti hai.</p>
+        <h3>Why Super-D Hub?</h3>
+        <p>Hum provide karte hain faster extraction aur clean downloads. No watermarks, no quality loss. 100% Free and Secure for everyone.</p>
       </div>
     </div>
 
     <div id="about" class="section">
       <h2>About & Privacy</h2>
-      <p>Super-D Hub speed aur privacy ke liye banaya gaya hai. Hum data save nahi karte.</p>
+      <p>Super-D Hub is built for speed. We don't store your personal data or downloaded videos on our servers.</p>
     </div>
 
     <footer>
-      <!-- FOOTER AD SLOT (Desktop Banner) -->
       <div class="ad-wrapper desktop-ad">
         <script>
           atOptions = { 'key' : 'c241894d9342421bbb9c1a23e34d1c47', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
@@ -240,7 +240,7 @@
       <div style="margin-top: 20px;">
         Built by: <span class="gang-text">WORLD2BOLD-GANG</span>
       </div>
-      <p>&copy; 2026 Super-D Hub | Clean & Ethical Download Service</p>
+      <p>&copy; 2026 Super-D Hub | All-in-One Video Tool</p>
     </footer>
 
     <script>
@@ -250,7 +250,7 @@
         window.scrollTo(0, 0);
       }
 
-      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Pinterest Video", "Snapchat Spotlight"];
+      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Snapchat Spotlight"];
       let pIndex = 0, charIndex = 0, isErasing = false;
       
       function typeEffect() {
@@ -264,55 +264,56 @@
       typeEffect();
 
       async function startDownload() {
-    const urlInput = document.getElementById("vUrl");
-    const btn = document.getElementById("mainBtn");
-    const url = urlInput.value.trim();
-    
-    if(!url) return alert("Bhai, link toh paste karo!");
-    
-    // UI Update
-    btn.disabled = true;
-    btn.innerText = "Extracting Clean Link... ⏳";
-    
-    try {
-        // Is URL ko update karein
-const backendURL = "https://super-shorts-backend.onrender.com/extract";
+        const urlInput = document.getElementById("vUrl");
+        const btn = document.getElementById("mainBtn");
+        const videoUrl = urlInput.value.trim();
+        
+        if(!videoUrl) return alert("Bhai, pehle link toh paste karo!");
+        
+        btn.disabled = true;
+        btn.innerText = "Extracting HD Link... ⏳";
+        
+        try {
+            const backendURL = "https://super-shorts-backend.onrender.com/extract";
 
-const res = await fetch(backendURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ 
-        url: userInputLink, 
-        token: "WORLD2BOLD_SECRET_786" // Ye token app.py se match hona chahiye
-    })
-});
-        
-        const data = await res.json();
-        
-        if(data.success) {
-            btn.innerText = "Download Starting... ✅";
+            const res = await fetch(backendURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    url: videoUrl, // FIXED: matching with variable
+                    token: "WORLD2BOLD_SECRET_786" 
+                })
+            });
             
-            // Ye method best hai download trigger karne ke liye
-            const a = document.createElement('a');
-            a.href = data.download_url;
-            a.download = `SuperD_${Date.now()}.mp4`; // Unique name
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            // Agar auto-download na ho toh thumbnail aur link show karwa do
-            console.log("Video Title:", data.title);
-        } else {
-            alert("Error: " + data.error);
+            const data = await res.json();
+            
+            if(data.success) {
+                btn.innerText = "Starting Download... ✅";
+                
+                const a = document.createElement('a');
+                a.href = data.download_url;
+                a.download = `SuperD_Video_${Date.now()}.mp4`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                alert("Server Error: " + data.error);
+            }
+        } catch(e) {
+            // Render spin-up error handling
+            btn.innerText = "Server Waking Up... (Retry in 5s)";
+            setTimeout(() => {
+                alert("Render server is taking time to wake up. Please wait 10 seconds and try again!");
+                btn.disabled = false;
+                btn.innerText = "Download Now 🚀";
+            }, 2000);
+        } finally {
+            setTimeout(() => { 
+                btn.disabled = false;
+                btn.innerText = "Download Now 🚀"; 
+            }, 5000);
         }
-    } catch(e) {
-        alert("Server is waking up. Please try again in 5 seconds.");
-        console.error("Fetch Error:", e);
-    } finally {
-        btn.disabled = false;
-        setTimeout(() => { btn.innerText = "Download Now 🚀"; }, 3000);
-    }
-}
+      }
     </script>
   </body>
 </html>
