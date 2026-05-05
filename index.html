@@ -53,8 +53,14 @@
       }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .hero-card {
@@ -105,13 +111,25 @@
       }
 
       /* Ad Logic */
-      .ad-wrapper { margin-top: 25px; text-align: center; overflow: hidden; }
-      .desktop-ad { display: block; }
-      .mobile-ad { display: none; }
+      .ad-wrapper {
+        margin-top: 25px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .desktop-ad {
+        display: block;
+      }
+      .mobile-ad {
+        display: none;
+      }
 
       @media (max-width: 768px) {
-        .desktop-ad { display: none; }
-        .mobile-ad { display: block; }
+        .desktop-ad {
+          display: none;
+        }
+        .mobile-ad {
+          display: block;
+        }
       }
 
       .steps-container {
@@ -182,15 +200,27 @@
         <h1>Super-D Hub</h1>
         <div class="typing-box" id="typing-text"></div>
 
-        <input type="text" id="vUrl" placeholder="Paste link here (Insta, TikTok, YouTube...)" />
-        <button class="btn-extract" id="mainBtn" onclick="startDownload()">Download Now 🚀</button>
+        <input
+          type="text"
+          id="vUrl"
+          placeholder="Paste link here (Insta, TikTok, YouTube...)"
+        />
+        <button class="btn-extract" id="mainBtn" onclick="startDownload()">
+          Download Now 🚀
+        </button>
 
         <!-- Mobile Ad -->
         <div class="ad-wrapper mobile-ad">
-           <script>
-            atOptions = { 'key': '737d32e910ef7d5da4e9e5832168ae16', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {} };
-           </script>
-           <script src="https://www.highperformanceformat.com/737d32e910ef7d5da4e9e5832168ae16/invoke.js"></script>
+          <script>
+            atOptions = {
+              key: "737d32e910ef7d5da4e9e5832168ae16",
+              format: "iframe",
+              height: 50,
+              width: 320,
+              params: {},
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/737d32e910ef7d5da4e9e5832168ae16/invoke.js"></script>
         </div>
       </div>
     </div>
@@ -220,24 +250,36 @@
       <h2>Daily Viral Updates</h2>
       <div class="article-box">
         <h3>Why Super-D Hub?</h3>
-        <p>Hum provide karte hain faster extraction aur clean downloads. No watermarks, no quality loss. 100% Free and Secure for everyone.</p>
+        <p>
+          Hum provide karte hain faster extraction aur clean downloads. No
+          watermarks, no quality loss. 100% Free and Secure for everyone.
+        </p>
       </div>
     </div>
 
     <div id="about" class="section">
       <h2>About & Privacy</h2>
-      <p>Super-D Hub is built for speed. We don't store your personal data or downloaded videos on our servers.</p>
+      <p>
+        Super-D Hub is built for speed. We don't store your personal data or
+        downloaded videos on our servers.
+      </p>
     </div>
 
     <footer>
       <div class="ad-wrapper desktop-ad">
         <script>
-          atOptions = { 'key' : 'c241894d9342421bbb9c1a23e34d1c47', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+          atOptions = {
+            key: "c241894d9342421bbb9c1a23e34d1c47",
+            format: "iframe",
+            height: 90,
+            width: 728,
+            params: {},
+          };
         </script>
         <script src="https://www.highperformanceformat.com/c241894d9342421bbb9c1a23e34d1c47/invoke.js"></script>
       </div>
 
-      <div style="margin-top: 20px;">
+      <div style="margin-top: 20px">
         Built by: <span class="gang-text">WORLD2BOLD-GANG</span>
       </div>
       <p>&copy; 2026 Super-D Hub | All-in-One Video Tool</p>
@@ -245,21 +287,41 @@
 
     <script>
       function showSection(id) {
-        document.querySelectorAll(".section").forEach((s) => s.classList.remove("active-section"));
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active-section"));
         document.getElementById(id).classList.add("active-section");
         window.scrollTo(0, 0);
       }
 
-      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Snapchat Spotlight"];
-      let pIndex = 0, charIndex = 0, isErasing = false;
-      
+      const platforms = [
+        "Instagram Reels",
+        "TikTok Videos",
+        "YouTube Shorts",
+        "Facebook Video",
+        "Twitter (X) Media",
+        "Snapchat Spotlight",
+      ];
+      let pIndex = 0,
+        charIndex = 0,
+        isErasing = false;
+
       function typeEffect() {
         const current = platforms[pIndex];
-        const display = isErasing ? current.substring(0, charIndex--) : current.substring(0, charIndex++);
+        const display = isErasing
+          ? current.substring(0, charIndex--)
+          : current.substring(0, charIndex++);
         document.getElementById("typing-text").innerHTML = display + "|";
-        if (!isErasing && charIndex > current.length) { isErasing = true; setTimeout(typeEffect, 2000); }
-        else if (isErasing && charIndex < 0) { isErasing = false; pIndex = (pIndex + 1) % platforms.length; setTimeout(typeEffect, 500); }
-        else { setTimeout(typeEffect, isErasing ? 50 : 100); }
+        if (!isErasing && charIndex > current.length) {
+          isErasing = true;
+          setTimeout(typeEffect, 2000);
+        } else if (isErasing && charIndex < 0) {
+          isErasing = false;
+          pIndex = (pIndex + 1) % platforms.length;
+          setTimeout(typeEffect, 500);
+        } else {
+          setTimeout(typeEffect, isErasing ? 50 : 100);
+        }
       }
       typeEffect();
 
@@ -267,51 +329,75 @@
         const urlInput = document.getElementById("vUrl");
         const btn = document.getElementById("mainBtn");
         const videoUrl = urlInput.value.trim();
-        
-        if(!videoUrl) return alert("Bhai, pehle link toh paste karo!");
-        
+
+        // Purane result ko remove karne ke liye
+        const oldResult = document.getElementById("download-result");
+        if (oldResult) oldResult.remove();
+
+        if (!videoUrl) return alert("Bhai, pehle link toh paste karo!");
+
         btn.disabled = true;
         btn.innerText = "Extracting HD Link... ⏳";
-        
-        try {
-            const backendURL = "https://super-shorts-backend.onrender.com/extract";
 
-            const res = await fetch(backendURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    url: videoUrl, // FIXED: matching with variable
-                    token: "WORLD2BOLD_SECRET_786" 
-                })
-            });
-            
-            const data = await res.json();
-            
-            if(data.success) {
-                btn.innerText = "Starting Download... ✅";
-                
-                const a = document.createElement('a');
-                a.href = data.download_url;
-                a.download = `SuperD_Video_${Date.now()}.mp4`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                alert("Server Error: " + data.error);
-            }
-        } catch(e) {
-            // Render spin-up error handling
-            btn.innerText = "Server Waking Up... (Retry in 5s)";
-            setTimeout(() => {
-                alert("Render server is taking time to wake up. Please wait 10 seconds and try again!");
-                btn.disabled = false;
-                btn.innerText = "Download Now 🚀";
-            }, 2000);
-        } finally {
-            setTimeout(() => { 
-                btn.disabled = false;
-                btn.innerText = "Download Now 🚀"; 
-            }, 5000);
+        try {
+          // Render Backend URL
+          const backendURL =
+            "https://super-shorts-backend.onrender.com/extract";
+
+          const res = await fetch(backendURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              url: videoUrl,
+              token: "WORLD2BOLD_SECRET_786",
+            }),
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            btn.innerText = "Success! Check Below ✅";
+
+            // Result Card Design
+            const resultDiv = document.createElement("div");
+            resultDiv.id = "download-result";
+            resultDiv.style =
+              "margin-top:25px; padding:20px; background:#fff; border-radius:20px; border:2px solid #6c5ce7; animation: fadeIn 0.5s ease;";
+
+            resultDiv.innerHTML = `
+                    <img src="${data.thumbnail}" style="width:100%; border-radius:12px; margin-bottom:15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <p style="font-weight:bold; color:#2d3436; margin-bottom:15px;">${data.title}</p>
+                    <a href="${data.download_url}" 
+                       target="_blank" 
+                       style="display:block; background:#00b894; color:white; padding:18px; border-radius:12px; text-decoration:none; font-weight:800; font-size:1.1rem; box-shadow: 0 10px 20px rgba(0,184,148,0.3);">
+                       CLICK TO SAVE VIDEO 📥
+                    </a>
+                    <p style="font-size:11px; color:#636e72; margin-top:10px;">If download doesn't start, Long-press the button and select 'Download Link'</p>
+                `;
+
+            document.querySelector(".hero-card").appendChild(resultDiv);
+
+            // Auto-Download attempt
+            const a = document.createElement("a");
+            a.href = data.download_url;
+            a.target = "_blank";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          } else {
+            alert("Error: " + data.error);
+            btn.innerText = "Download Now 🚀";
+            btn.disabled = false;
+          }
+        } catch (e) {
+          btn.innerText = "Server Waking Up... (Wait 10s)";
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.innerText = "Download Now 🚀";
+            alert(
+              "Render server is starting. Please try again in a few seconds!",
+            );
+          }, 5000);
         }
       }
     </script>
