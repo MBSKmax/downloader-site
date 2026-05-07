@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Super-D Hub | Ultimate All-in-One Downloader</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
       :root {
         --primary: #6c5ce7;
+        --success: #00b894;
         --bg: #f8f9fa;
         --card: #ffffff;
       }
@@ -35,12 +37,13 @@
         font-weight: 600;
         font-size: 14px;
         cursor: pointer;
+        transition: 0.3s;
       }
       nav a:hover {
         color: var(--primary);
       }
 
-      /* Main Section */
+      /* Sections */
       .section {
         display: none;
         padding: 40px 20px;
@@ -53,14 +56,8 @@
       }
 
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .hero-card {
@@ -85,7 +82,7 @@
         border: 2px solid #f1f1f1;
         border-radius: 15px;
         margin: 20px 0;
-        box-sizing: border-box; /* Fix for padding issue */
+        box-sizing: border-box;
         font-size: 16px;
         transition: 0.3s;
       }
@@ -93,6 +90,7 @@
         border-color: var(--primary);
         outline: none;
       }
+
       .btn-extract {
         width: 100%;
         padding: 20px;
@@ -110,26 +108,47 @@
         cursor: not-allowed;
       }
 
-      /* Ad Logic */
-      .ad-wrapper {
-        margin-top: 25px;
-        text-align: center;
-        overflow: hidden;
-      }
-      .desktop-ad {
-        display: block;
-      }
-      .mobile-ad {
+      /* Ssstik Style Result Card */
+      #result-container {
         display: none;
+        margin-top: 25px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 20px;
+        border: 2px solid var(--success);
+        animation: fadeIn 0.5s ease;
+      }
+      .thumb {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      .dl-btn {
+        display: block;
+        background: var(--success);
+        color: white;
+        padding: 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 1.1rem;
+        box-shadow: 0 10px 20px rgba(0,184,148,0.3);
+        transition: 0.3s;
+      }
+      .dl-btn:hover {
+        transform: translateY(-2px);
       }
 
+      /* Ad Logic */
+      .ad-wrapper { margin-top: 25px; text-align: center; overflow: hidden; }
+      .desktop-ad { display: block; }
+      .mobile-ad { display: none; }
+
       @media (max-width: 768px) {
-        .desktop-ad {
-          display: none;
-        }
-        .mobile-ad {
-          display: block;
-        }
+        .desktop-ad { display: none; }
+        .mobile-ad { display: block; }
+        .hero-card { padding: 25px; }
       }
 
       .steps-container {
@@ -146,24 +165,14 @@
         border: 1px solid #eee;
       }
       .step-num {
-        width: 40px;
-        height: 40px;
+        width: 40px; height: 40px;
         background: var(--primary);
         color: white;
         border-radius: 50%;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: center; justify-content: center;
         margin: 0 auto 10px;
         font-weight: bold;
-      }
-
-      .article-box {
-        background: white;
-        padding: 25px;
-        border-radius: 20px;
-        margin-top: 20px;
-        line-height: 1.6;
       }
 
       footer {
@@ -185,7 +194,6 @@
     </style>
   </head>
   <body>
-    <!-- Social Bar Ad -->
     <script src="https://pl29314272.profitablecpmratenetwork.com/86/8e/14/868e143ac1fced7f4d570df43f22b63c.js"></script>
 
     <nav>
@@ -200,25 +208,19 @@
         <h1>Super-D Hub</h1>
         <div class="typing-box" id="typing-text"></div>
 
-        <input
-          type="text"
-          id="vUrl"
-          placeholder="Paste link here (Insta, TikTok, YouTube...)"
-        />
-        <button class="btn-extract" id="mainBtn" onclick="startDownload()">
-          Download Now 🚀
-        </button>
+        <input type="text" id="vUrl" placeholder="Paste link here (TikTok, YT, Insta...)" />
+        <button class="btn-extract" id="mainBtn" onclick="startDownload()">Download Now 🚀</button>
 
-        <!-- Mobile Ad -->
+        <div id="result-container">
+            <img id="resThumb" class="thumb" src="" alt="Thumbnail">
+            <p id="resTitle" style="font-weight:600; color:#2d3436; margin-bottom:15px;"></p>
+            <a id="dlLink" class="dl-btn" href="#" target="_blank">CLICK TO SAVE VIDEO 📥</a>
+            <p style="font-size:11px; color:#636e72; margin-top:10px;">If download doesn't start, Long-press and select 'Download Link'.</p>
+        </div>
+
         <div class="ad-wrapper mobile-ad">
           <script>
-            atOptions = {
-              key: "737d32e910ef7d5da4e9e5832168ae16",
-              format: "iframe",
-              height: 50,
-              width: 320,
-              params: {},
-            };
+            atOptions = { 'key': '737d32e910ef7d5da4e9e5832168ae16', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {} };
           </script>
           <script src="https://www.highperformanceformat.com/737d32e910ef7d5da4e9e5832168ae16/invoke.js"></script>
         </div>
@@ -228,53 +230,29 @@
     <div id="how-to" class="section">
       <h2 style="text-align: center">How to Download?</h2>
       <div class="steps-container">
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <h4>Copy Link</h4>
-          <p>Apni pasand ki video ka link copy karein.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <h4>Paste Link</h4>
-          <p>Yahan paste kar ke 'Download Now' dabayein.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">3</div>
-          <h4>Done</h4>
-          <p>Video download ho kar gallery mein aa jayegi.</p>
-        </div>
+        <div class="step-card"><div class="step-num">1</div><h4>Copy Link</h4><p>Video ka link copy karein.</p></div>
+        <div class="step-card"><div class="step-num">2</div><h4>Paste Link</h4><p>Yahan paste kar ke 'Download Now' dabayein.</p></div>
+        <div class="step-card"><div class="step-num">3</div><h4>Done</h4><p>Video gallery mein save ho jayegi.</p></div>
       </div>
     </div>
 
     <div id="articles" class="section">
       <h2>Daily Viral Updates</h2>
-      <div class="article-box">
+      <div style="background:white; padding:25px; border-radius:20px; margin-top:20px; line-height:1.6;">
         <h3>Why Super-D Hub?</h3>
-        <p>
-          Hum provide karte hain faster extraction aur clean downloads. No
-          watermarks, no quality loss. 100% Free and Secure for everyone.
-        </p>
+        <p>No watermarks, no quality loss. 100% Free and Secure for everyone.</p>
       </div>
     </div>
 
     <div id="about" class="section">
       <h2>About & Privacy</h2>
-      <p>
-        Super-D Hub is built for speed. We don't store your personal data or
-        downloaded videos on our servers.
-      </p>
+      <p>Super-D Hub is built for speed. We don't store your personal data on our servers.</p>
     </div>
 
     <footer>
       <div class="ad-wrapper desktop-ad">
         <script>
-          atOptions = {
-            key: "c241894d9342421bbb9c1a23e34d1c47",
-            format: "iframe",
-            height: 90,
-            width: 728,
-            params: {},
-          };
+          atOptions = { 'key': 'c241894d9342421bbb9c1a23e34d1c47', 'format': 'iframe', 'height': 90, 'width': 728, 'params': {} };
         </script>
         <script src="https://www.highperformanceformat.com/c241894d9342421bbb9c1a23e34d1c47/invoke.js"></script>
       </div>
@@ -282,108 +260,60 @@
       <div style="margin-top: 20px">
         Built by: <span class="gang-text">WORLD2BOLD-GANG</span>
       </div>
-      <p>&copy; 2026 Super-D Hub | All-in-One Video Tool</p>
+      <p>&copy; 2026 Super-D Hub | All-in-One Video Tool | All Rights Reserved</p>
     </footer>
 
     <script>
       function showSection(id) {
-        document
-          .querySelectorAll(".section")
-          .forEach((s) => s.classList.remove("active-section"));
+        document.querySelectorAll(".section").forEach((s) => s.classList.remove("active-section"));
         document.getElementById(id).classList.add("active-section");
         window.scrollTo(0, 0);
       }
 
-      const platforms = [
-        "Instagram Reels",
-        "TikTok Videos",
-        "YouTube Shorts",
-        "Facebook Video",
-        "Twitter (X) Media",
-        "Snapchat Spotlight",
-      ];
-      let pIndex = 0,
-        charIndex = 0,
-        isErasing = false;
+      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media"];
+      let pIndex = 0, charIndex = 0, isErasing = false;
 
       function typeEffect() {
         const current = platforms[pIndex];
-        const display = isErasing
-          ? current.substring(0, charIndex--)
-          : current.substring(0, charIndex++);
+        const display = isErasing ? current.substring(0, charIndex--) : current.substring(0, charIndex++);
         document.getElementById("typing-text").innerHTML = display + "|";
-        if (!isErasing && charIndex > current.length) {
-          isErasing = true;
-          setTimeout(typeEffect, 2000);
-        } else if (isErasing && charIndex < 0) {
-          isErasing = false;
-          pIndex = (pIndex + 1) % platforms.length;
-          setTimeout(typeEffect, 500);
-        } else {
-          setTimeout(typeEffect, isErasing ? 50 : 100);
-        }
+        if (!isErasing && charIndex > current.length) { isErasing = true; setTimeout(typeEffect, 2000); }
+        else if (isErasing && charIndex < 0) { isErasing = false; pIndex = (pIndex + 1) % platforms.length; setTimeout(typeEffect, 500); }
+        else { setTimeout(typeEffect, isErasing ? 50 : 100); }
       }
       typeEffect();
 
       async function startDownload() {
         const urlInput = document.getElementById("vUrl");
         const btn = document.getElementById("mainBtn");
+        const resCon = document.getElementById("result-container");
         const videoUrl = urlInput.value.trim();
-
-        // Purane result ko remove karne ke liye
-        const oldResult = document.getElementById("download-result");
-        if (oldResult) oldResult.remove();
 
         if (!videoUrl) return alert("Bhai, pehle link toh paste karo!");
 
         btn.disabled = true;
         btn.innerText = "Extracting HD Link... ⏳";
+        resCon.style.display = "none";
 
         try {
-          // Render Backend URL
-          const backendURL =
-            "https://super-shorts-backend.onrender.com/extract";
-
-          const res = await fetch(backendURL, {
+          const res = await fetch("https://super-shorts-backend.onrender.com/extract", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              url: videoUrl,
-              token: "WORLD2BOLD_SECRET_786",
-            }),
+            body: JSON.stringify({ url: videoUrl, token: "WORLD2BOLD_SECRET_786" }),
           });
 
           const data = await res.json();
 
           if (data.success) {
+            document.getElementById("resThumb").src = data.thumbnail;
+            document.getElementById("resTitle").innerText = data.title;
+            document.getElementById("dlLink").href = data.download_url;
+            
+            resCon.style.display = "block";
             btn.innerText = "Success! Check Below ✅";
-
-            // Result Card Design
-            const resultDiv = document.createElement("div");
-            resultDiv.id = "download-result";
-            resultDiv.style =
-              "margin-top:25px; padding:20px; background:#fff; border-radius:20px; border:2px solid #6c5ce7; animation: fadeIn 0.5s ease;";
-
-            resultDiv.innerHTML = `
-                    <img src="${data.thumbnail}" style="width:100%; border-radius:12px; margin-bottom:15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                    <p style="font-weight:bold; color:#2d3436; margin-bottom:15px;">${data.title}</p>
-                    <a href="${data.download_url}" 
-                       target="_blank" 
-                       style="display:block; background:#00b894; color:white; padding:18px; border-radius:12px; text-decoration:none; font-weight:800; font-size:1.1rem; box-shadow: 0 10px 20px rgba(0,184,148,0.3);">
-                       CLICK TO SAVE VIDEO 📥
-                    </a>
-                    <p style="font-size:11px; color:#636e72; margin-top:10px;">If download doesn't start, Long-press the button and select 'Download Link'</p>
-                `;
-
-            document.querySelector(".hero-card").appendChild(resultDiv);
-
-            // Auto-Download attempt
-            const a = document.createElement("a");
-            a.href = data.download_url;
-            a.target = "_blank";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            
+            // Auto-Download trigger
+            window.location.href = data.download_url;
           } else {
             alert("Error: " + data.error);
             btn.innerText = "Download Now 🚀";
@@ -394,9 +324,6 @@
           setTimeout(() => {
             btn.disabled = false;
             btn.innerText = "Download Now 🚀";
-            alert(
-              "Render server is starting. Please try again in a few seconds!",
-            );
           }, 5000);
         }
       }
