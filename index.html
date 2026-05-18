@@ -19,7 +19,6 @@
         scroll-behavior: smooth;
       }
 
-      /* Navigation */
       nav {
         background: white;
         padding: 15px;
@@ -39,11 +38,8 @@
         cursor: pointer;
         transition: 0.3s;
       }
-      nav a:hover {
-        color: var(--primary);
-      }
+      nav a:hover { color: var(--primary); }
 
-      /* Sections */
       .section {
         display: none;
         padding: 40px 20px;
@@ -108,7 +104,29 @@
         cursor: not-allowed;
       }
 
-      /* Ssstik Style Result Card */
+      /* Progress bar */
+      #progress-wrap {
+        display: none;
+        margin-top: 15px;
+        background: #f1f1f1;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 8px;
+      }
+      #progress-bar {
+        height: 8px;
+        width: 0%;
+        background: linear-gradient(90deg, var(--primary), var(--success));
+        border-radius: 10px;
+        transition: width 0.4s ease;
+      }
+      #status-msg {
+        font-size: 13px;
+        color: #636e72;
+        margin-top: 8px;
+        min-height: 18px;
+      }
+
       #result-container {
         display: none;
         margin-top: 25px;
@@ -136,11 +154,8 @@
         box-shadow: 0 10px 20px rgba(0,184,148,0.3);
         transition: 0.3s;
       }
-      .dl-btn:hover {
-        transform: translateY(-2px);
-      }
+      .dl-btn:hover { transform: translateY(-2px); }
 
-      /* Ad Logic */
       .ad-wrapper { margin-top: 25px; text-align: center; overflow: hidden; }
       .desktop-ad { display: block; }
       .mobile-ad { display: none; }
@@ -211,6 +226,12 @@
         <input type="text" id="vUrl" placeholder="Paste link here (TikTok, YT, Insta...)" />
         <button class="btn-extract" id="mainBtn" onclick="startDownload()">Download Now 🚀</button>
 
+        <!-- Progress bar -->
+        <div id="progress-wrap">
+          <div id="progress-bar"></div>
+        </div>
+        <p id="status-msg"></p>
+
         <div id="result-container">
             <img id="resThumb" class="thumb" src="" alt="Thumbnail">
             <p id="resTitle" style="font-weight:600; color:#2d3436; margin-bottom:15px;"></p>
@@ -256,7 +277,6 @@
         </script>
         <script src="https://www.highperformanceformat.com/c241894d9342421bbb9c1a23e34d1c47/invoke.js"></script>
       </div>
-
       <div style="margin-top: 20px">
         Built by: <span class="gang-text">WORLD2BOLD-GANG</span>
       </div>
@@ -264,15 +284,22 @@
     </footer>
 
     <script>
+      // ─── CONFIG ───────────────────────────────────────────────────────────
+      const BACKEND = "https://super-shorts-backend.onrender.com";
+      const TOKEN   = "WORLD2BOLD_SECRET_786";
+      const MAX_WAKE_TRIES = 8;   // kitni baar health check kare
+      const WAKE_INTERVAL  = 5000; // ms — har 5 sec baad check
+
+      // ─── Section Navigation ───────────────────────────────────────────────
       function showSection(id) {
-        document.querySelectorAll(".section").forEach((s) => s.classList.remove("active-section"));
+        document.querySelectorAll(".section").forEach(s => s.classList.remove("active-section"));
         document.getElementById(id).classList.add("active-section");
         window.scrollTo(0, 0);
       }
 
-      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media"];
+      // ─── Typing Effect ────────────────────────────────────────────────────
+      const platforms = ["Instagram Reels", "TikTok Videos", "YouTube Shorts", "Facebook Video", "Twitter (X) Media", "Pinterest Videos"];
       let pIndex = 0, charIndex = 0, isErasing = false;
-
       function typeEffect() {
         const current = platforms[pIndex];
         const display = isErasing ? current.substring(0, charIndex--) : current.substring(0, charIndex++);
@@ -283,48 +310,110 @@
       }
       typeEffect();
 
+      // ─── UI Helpers ───────────────────────────────────────────────────────
+      function setProgress(pct, msg) {
+        document.getElementById("progress-wrap").style.display = "block";
+        document.getElementById("progress-bar").style.width = pct + "%";
+        document.getElementById("status-msg").innerText = msg || "";
+      }
+
+      function resetUI() {
+        const btn = document.getElementById("mainBtn");
+        btn.disabled = false;
+        btn.innerText = "Download Now 🚀";
+        document.getElementById("progress-wrap").style.display = "none";
+        document.getElementById("progress-bar").style.width = "0%";
+        document.getElementById("status-msg").innerText = "";
+      }
+
+      // ─── Server Wake-Up (health check) ───────────────────────────────────
+      function waitForServer() {
+        return new Promise((resolve, reject) => {
+          let tries = 0;
+          setProgress(10, "Server jaga raha hoon... ☕");
+
+          const check = async () => {
+            tries++;
+            try {
+              const r = await fetch(`${BACKEND}/health`, { method: "GET", signal: AbortSignal.timeout(5000) });
+              if (r.ok) {
+                setProgress(40, "Server ready! Extracting link... 🔗");
+                resolve();
+                return;
+              }
+            } catch (_) {}
+
+            if (tries >= MAX_WAKE_TRIES) {
+              reject(new Error("Server start nahi ho saka. Thodi der baad retry karein."));
+              return;
+            }
+
+            const elapsed = tries * 5;
+            setProgress(10 + tries * 3, `Server warm ho raha hai... (${elapsed}s) ☕`);
+            setTimeout(check, WAKE_INTERVAL);
+          };
+
+          check();
+        });
+      }
+
+      // ─── Main Download Function ───────────────────────────────────────────
       async function startDownload() {
         const urlInput = document.getElementById("vUrl");
-        const btn = document.getElementById("mainBtn");
-        const resCon = document.getElementById("result-container");
+        const btn      = document.getElementById("mainBtn");
+        const resCon   = document.getElementById("result-container");
         const videoUrl = urlInput.value.trim();
 
-        if (!videoUrl) return alert("Bhai, pehle link toh paste karo!");
+        if (!videoUrl) { alert("Bhai, pehle link toh paste karo!"); return; }
 
-        btn.disabled = true;
-        btn.innerText = "Extracting HD Link... ⏳";
+        btn.disabled  = true;
+        btn.innerText = "Processing... ⏳";
         resCon.style.display = "none";
+        setProgress(5, "Shuru ho raha hai...");
 
         try {
-          const res = await fetch("https://super-shorts-backend.onrender.com/extract", {
+          // Step 1: Server jaga lo
+          await waitForServer();
+
+          // Step 2: Extract request
+          setProgress(50, "Video info nikal raha hai... 🎬");
+
+          const res = await fetch(`${BACKEND}/extract`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url: videoUrl, token: "WORLD2BOLD_SECRET_786" }),
+            body: JSON.stringify({ url: videoUrl, token: TOKEN }),
+            signal: AbortSignal.timeout(60000), // 60s timeout
           });
 
+          setProgress(85, "Link mil gaya! Tayyar kar raha hoon... ✅");
           const data = await res.json();
 
           if (data.success) {
-            document.getElementById("resThumb").src = data.thumbnail;
-            document.getElementById("resTitle").innerText = data.title;
-            document.getElementById("dlLink").href = data.download_url;
-            
+            document.getElementById("resThumb").src   = data.thumbnail || "";
+            document.getElementById("resTitle").innerText = data.title || "Super-D Media";
+            document.getElementById("dlLink").href    = data.download_url;
+
+            setProgress(100, "Done! Neechay dekho 👇");
             resCon.style.display = "block";
-            btn.innerText = "Success! Check Below ✅";
-            
-            // Auto-Download trigger
-            window.location.href = data.download_url;
+            btn.innerText = "Download Again 🚀";
+            btn.disabled  = false;
+
+            // Auto-download trigger
+            setTimeout(() => { window.location.href = data.download_url; }, 500);
+
           } else {
-            alert("Error: " + data.error);
-            btn.innerText = "Download Now 🚀";
-            btn.disabled = false;
+            alert("❌ Error: " + (data.error || "Unknown error"));
+            resetUI();
           }
-        } catch (e) {
-          btn.innerText = "Server Waking Up... (Wait 10s)";
-          setTimeout(() => {
-            btn.disabled = false;
-            btn.innerText = "Download Now 🚀";
-          }, 5000);
+
+        } catch (err) {
+          const msg = err.message || "";
+          if (msg.includes("start nahi")) {
+            alert("⚠️ " + msg);
+          } else {
+            alert("❌ Network error. Internet check karein aur dobara try karein.");
+          }
+          resetUI();
         }
       }
     </script>
